@@ -10,6 +10,7 @@ print("Have fun!")
 # each iteration of the loop is one opportunity to enter url, ^q will quit it
 user_input=""
 while user_input != "^q":
+	print("New search . . .")
 	user_input = input(">")
 	# if user didn't input "q" go ahead
 	if user_input != "^q":

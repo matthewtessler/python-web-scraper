@@ -7,12 +7,12 @@ print("Enter a valid url to find the most frequent words on its page.")
 print("Enter 'q' to quit the application.")
 print("Have fun!")
 
-# each iteration of the loop is one opportunity to enter url, q will quit it
+# each iteration of the loop is one opportunity to enter url, ^q will quit it
 user_input=""
-while user_input != "q":
+while user_input != "^q":
 	user_input = input(">")
 	# if user didn't input "q" go ahead
-	if user_input != "q":
+	if user_input != "^q":
 		# attempt to request the url and parse through its text
 		try:
 			page = requests.get(user_input)
@@ -44,10 +44,17 @@ while user_input != "q":
 				print(i[1], ": ", i[0], sep="")
 
 			
-			#print("Find a specific word, or enter '^rs' to do a new search.")
+			print("Find a specific word, or enter '^rs' to do a new search.")
+			one_word = ""
+			while one_word != "^rs":
+				one_word = input(">")
+				if one_word != "^rs":
+					if one_word in no_reps:
+						print("The word", one_word, "appeared", no_reps[one_word], "times.")
+					else:
+						print("The word", one_word, "does not exist on this page.")
 
 		#some error occurred in all that
 		except:
 			print("Something went wrong. Try again.")
-			raise
 			

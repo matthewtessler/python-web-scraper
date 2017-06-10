@@ -29,16 +29,23 @@ while user_input != "q":
 						parsed_text += j
 				# add all parsed_text to the big initial list
 				all_text += parsed_text.lower().split(" ")
-			no_repeats = {}
-			#now parse through that big list and take out any blanks and repeats
 			
+			# some data type should store one word and its frequency
+			no_reps = {}
 			for i in all_text:
-				if i != "":
-					if i not in no_repeats:
-						no_repeats[i] = 1
-					else:
-						no_repeats[i] += 1
-			print(no_repeats)
+				if i != "" and i not in no_reps:
+					no_reps[i] = 1
+				elif i in no_reps:
+					no_reps[i] += 1
+
+			tups = [ (v,k) for k,v in no_reps.items() ]
+			tups.sort(reverse=True) # natively sort tuples by first element
+			for i in tups:
+				print(i[1], ": ", i[0], sep="")
+
+			
+			#print("Find a specific word, or enter '^rs' to do a new search.")
+
 		#some error occurred in all that
 		except:
 			print("Something went wrong. Try again.")

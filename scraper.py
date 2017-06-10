@@ -13,7 +13,12 @@ while user_input != "q":
 		try:
 			page = requests.get(user_input)
 			tree = html.fromstring(page.content)
+			pees = tree.xpath("//p//text()")
+			all_text = []
+			for i in pees:
+				all_text.append(i.lower().split(" "))
+			print(all_text)
+
 		except:
-			print("Not a valid url. Try again.")
-		else:
-			print("content parsing will be here")
+			print("Something went wrong. Try again.")
+			

@@ -30,7 +30,7 @@ while user_input != "^q":
 				# add all parsed_text to the big initial list
 				all_text += parsed_text.lower().split(" ")
 			
-			# some data type should store one word and its frequency
+			# add each word into the dictionary once, iterate if seen again
 			no_reps = {}
 			for i in all_text:
 				if i != "" and i not in no_reps:
@@ -38,12 +38,13 @@ while user_input != "^q":
 				elif i in no_reps:
 					no_reps[i] += 1
 
+			# convert to a tuple to print out in sorted order
 			tups = [ (v,k) for k,v in no_reps.items() ]
 			tups.sort(reverse=True) # natively sort tuples by first element
 			for i in tups:
 				print(i[1], ": ", i[0], sep="")
 
-			
+			# feature to find one word in the list
 			print("Find a specific word, or enter '^rs' to do a new search.")
 			one_word = ""
 			while one_word != "^rs":

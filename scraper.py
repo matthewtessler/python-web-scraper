@@ -29,13 +29,18 @@ while user_input != "q":
 						parsed_text += j
 				# add all parsed_text to the big initial list
 				all_text += parsed_text.lower().split(" ")
-			text = []
-			#now parse through that big list and take out any blanks
+			no_repeats = {}
+			#now parse through that big list and take out any blanks and repeats
+			
 			for i in all_text:
 				if i != "":
-					text.append(i)
-			print(text)
+					if i not in no_repeats:
+						no_repeats[i] = 1
+					else:
+						no_repeats[i] += 1
+			print(no_repeats)
 		#some error occurred in all that
 		except:
 			print("Something went wrong. Try again.")
+			raise
 			

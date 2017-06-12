@@ -5,7 +5,10 @@ import requests
 print("Welcome to Python Web Scraper!")
 print("Enter a valid url to find the most frequent words on its page.")
 print("Enter 'q' to quit the application.")
-print("Have fun!")
+raise_errors = input("Do you want errors raised? Enter 'Y' or 'N': ")
+while raise_errors != "Y" and raise_errors != "N":
+	raise_errors = input("Do you want errors raised? Enter 'Y' or 'N': ")
+print("Okay. Have fun!")
 
 # each iteration of the loop is one opportunity to enter url, ^q will quit it
 user_input=""
@@ -18,10 +21,16 @@ while user_input != "^q":
 		try:
 			page = requests.get(user_input)
 			tree = html.fromstring(page.content)
-			pees = tree.xpath("//p//text()") #just text from <p> tags right now
+			p_tags = tree.xpath("//p//text()") # text from <p> tags
+			h1_tags = tree.xpath("//h1//text()") # text from <h1> tags
+			h2_tags = tree.xpath("//h2//text()") # text from <h2> tags
+			h3_tags = tree.xpath("//h3//text()") # text from <h3> tags
+			h4_tags = tree.xpath("//h4//text()") # text from <h4> tags
+			h5_tags = tree.xpath("//h5//text()") # text from <h5> tags
+			h6_tags = tree.xpath("//h6//text()") # text from <h6> tags
 			all_text = []
 			# go through each <p> tag
-			for i in pees:
+			for i in p_tags:
 				parsed_text=""
 				# go through each char in the text of the <p> tag
 				for j in i:
@@ -30,7 +39,49 @@ while user_input != "^q":
 						parsed_text += j
 				# add all parsed_text to the big initial list
 				all_text += parsed_text.lower().split(" ")
-			
+
+			for i in h1_tags:
+				parsed_text = ""
+				for j in i:
+					if j.isalpha() or j == " ":
+						parsed_text += j
+				all_text += parsed_text.lower().split(" ")
+
+			for i in h2_tags:
+				parsed_text = ""
+				for j in i:
+					if j.isalpha() or j == " ":
+						parsed_text += j
+				all_text += parsed_text.lower().split(" ")
+
+			for i in h3_tags:
+				parsed_text = ""
+				for j in i:
+					if j.isalpha() or j == " ":
+						parsed_text += j
+				all_text += parsed_text.lower().split(" ")
+
+			for i in h4_tags:
+				parsed_text = ""
+				for j in i:
+					if j.isalpha() or j == " ":
+						parsed_text += j
+				all_text += parsed_text.lower().split(" ")
+
+			for i in h5_tags:
+				parsed_text = ""
+				for j in i:
+					if j.isalpha() or j == " ":
+						parsed_text += j
+				all_text += parsed_text.lower().split(" ")
+
+			for i in h6_tags:
+				parsed_text = ""
+				for j in i:
+					if j.isalpha() or j == " ":
+						parsed_text += j
+				all_text += parsed_text.lower().split(" ")
+
 			# add each word into the dictionary once, iterate if seen again
 			no_reps = {}
 			for i in all_text:
@@ -59,4 +110,5 @@ while user_input != "^q":
 		#some error occurred in all that
 		except:
 			print("Something went wrong. Try again.")
-			
+			if raise_errors == "Y":
+				raise
